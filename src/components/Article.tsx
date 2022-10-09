@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 interface IProps {
     title: string;
     id: number;
-    author: string;
+    author: number;
 }
 const Article = (props: IProps) => {
     const navigate = useNavigate();

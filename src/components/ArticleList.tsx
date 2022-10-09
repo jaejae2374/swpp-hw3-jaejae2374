@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Article from './Article'
-
-type ArticleType = {
-    id: number;
-    title: string;
-    author: string;
-};
+import { useDispatch, useSelector } from "react-redux";
+import { selectArticle, articleActions } from "../store/slices/article";
 
 function ArticleList() {
     const navigate = useNavigate();
-    const [articles, setArticles] = useState<ArticleType[]>([
-        {id: 1, title: "test_1", author: "user_1"},
-        {id: 2, title: "test_2", author: "user_2"},
-        {id: 3, title: "test_3", author: "user_3"}
-    ]);
+    const articleState = useSelector(selectArticle);
+    const dispatch = useDispatch();
  
 
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
@@ -43,20 +36,22 @@ function ArticleList() {
           });
     },
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    [])
+    []);
  
     return (
         <div>
             <h1>Article List</h1>
-            <button id='create-article-button' style={{ padding: '7px 10px', fontWeight: 'bold' }}> Create Article </button>
+            <button id='create-article-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={() => { return navigate("/articles/create") }}> 
+                Create Article 
+            </button>
             <hr />
             <div className="Articles">
-                {articles.map((a) => {
+                {articleState.articles.map((a) => {
                     return <Article id={a.id} title={a.title} author={a.author} />;
                     })} 
             </div>
         </div>
-    )
+    );
 }
  
 export default ArticleList;
