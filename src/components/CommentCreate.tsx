@@ -15,9 +15,9 @@ function CommentCreate(props: IProps) {
 
     const handleConfirm = () => {
         if (content == "") {
-            return <button id="confirm-create-article-button" disabled>Confirm</button>
+            return <button id="confirm-create-comment-button" disabled>Confirm</button>
         } else {
-            return <button id="confirm-create-article-button" onClick={createComment}>Confirm</button>
+            return <button id="confirm-create-comment-button" onClick={createComment}>Confirm</button>
         }
     }
     
