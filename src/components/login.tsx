@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { userActions, updateLogin, fetchUsers, selectUser } from "../store/slices/user";
+import { updateLogin, fetchUsers, selectUser } from "../store/slices/user";
 import { AppDispatch } from '../store';
 
 function Login() {
@@ -24,7 +24,6 @@ function Login() {
         setPassword(e.target.value);
     }
  
-	// login 버튼 클릭 이벤트
     const onClickLogin = () => {
         if (email === "swpp@snu.ac.kr" && password === "iluvswpp") {
             dispatch(updateLogin({id:1, logged_in: true, email: email, password: password, name: "Software Lover"}));
@@ -38,7 +37,6 @@ function Login() {
         if (target?.logged_in) {
           return <Navigate to="/articles" />;
         }
-        return <></>
       }
  
     return(

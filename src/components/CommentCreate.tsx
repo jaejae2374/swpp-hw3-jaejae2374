@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from '../store';
 import { postComment, selectComment } from "../store/slices/comment";
@@ -7,6 +7,7 @@ interface IProps {
     article_id: number;
     author_id: number;
 }
+
 function CommentCreate(props: IProps) {
     const [content, setContent] = useState<string>("");
     const dispatch = useDispatch<AppDispatch>();
@@ -29,7 +30,6 @@ function CommentCreate(props: IProps) {
 
     return (
         <div className="CommentCreate">
-            <h1>Comment Create</h1>
             <input id="new-comment-content-input" type="text" value={content} onChange={(event) => setContent(event.target.value)} />
             {handleConfirm()}
         </div>

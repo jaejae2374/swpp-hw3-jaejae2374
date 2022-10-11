@@ -4,14 +4,13 @@ import axios from 'axios'
 
 export interface ArticleType { id: number; title: string; content: string; author_id: number; }
 export interface ArticleState { articles: ArticleType[]; selectedArticle: ArticleType | null;}
+
 const initialState: ArticleState = {
     articles: [
-        { id: 1, title: "SWPP", content: "take swpp class", author_id: 1 },
-        { id: 2, title: "Movie", content: "watch movie", author_id: 1},
-        { id: 3, title: "Dinner", content: "eat dinner", author_id: 1},
     ],
     selectedArticle: null,
 };
+
 export const articleSlice = createSlice({
     name: "article",
     initialState,
@@ -53,10 +52,10 @@ export const articleSlice = createSlice({
         });
     }
 });
+
 export const articleActions = articleSlice.actions;
 export const selectArticle = (state: RootState) => state.article;
 export default articleSlice.reducer;
-
 
 export const fetchArticles = createAsyncThunk(
     "article/fetchArticles",

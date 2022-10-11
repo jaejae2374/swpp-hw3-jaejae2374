@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, articleActions, deleteArticle, fetchArticle } from "../store/slices/article";
+import { selectArticle, deleteArticle, fetchArticle } from "../store/slices/article";
 import Article2 from './Article2'
 import { AppDispatch } from '../store';
 import { selectUser } from "../store/slices/user";
@@ -15,6 +15,7 @@ function ArticleDetail() {
     const dispatch = useDispatch<AppDispatch>();
     const articleState = useSelector(selectArticle);
     const userState = useSelector(selectUser);
+    const userId = 1;
 
     useEffect(() => {
         dispatch(fetchArticle(articleId));
@@ -22,19 +23,18 @@ function ArticleDetail() {
     }, [articleId]);
 
     const handleEdit = () => {
-        if (articleState.selectedArticle?.author_id === 1) {
+        if (articleState.selectedArticle?.author_id === userId) {
             return (
-                <button id='edit-article-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={() => { return navigate(`/articles/${articleId}/edit`); }}> 
+                <button id='edit-article-button' onClick={() => { return navigate(`/articles/${articleId}/edit`); }}> 
                     Edit
                 </button>
             );
         }
-        return <></>
     }
     const handleDelete = () => {
-        if (articleState.selectedArticle?.author_id === 1) {
+        if (articleState.selectedArticle?.author_id === userId) {
             return (
-                <button id='delete-article-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={
+                <button id='delete-article-button' onClick={
                     () => { 
                         dispatch(deleteArticle(articleId)); 
                         return navigate(`/articles`); }}> 
@@ -42,32 +42,31 @@ function ArticleDetail() {
                 </button>
             );
         }
-        return <></>
     }
 
     const handleLogin = () => {
-        const target = userState.users.find((u) => u.id == 1);
+        const target = userState.users.find((u) => u.id == userId);
         if (! target?.logged_in) {
           return <Navigate to="/login" />;
         }
-        return <></>
     }
+    
 
-    // TODO: Comment 호출 모듈
     return (
         <div className="Article">
             <Logout />
             {handleLogin()}
+            <h1>Article Detail</h1>
             <Article2 
                 author={articleState.selectedArticle?.author_id} 
                 title={articleState.selectedArticle?.title} 
                 content={articleState.selectedArticle?.content} />
             {handleEdit()}
             {handleDelete()}
-            <button id='back-detail-article-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={() => { return navigate("/articles") }}> 
+            <button id='back-detail-article-button' onClick={() => { return navigate("/articles") }}> 
                 Back
             </button>
-            <CommentList article_id={articleId} author_id={1} />
+            <CommentList article_id={articleId} author_id={userId} />
         </div>
     );
 }

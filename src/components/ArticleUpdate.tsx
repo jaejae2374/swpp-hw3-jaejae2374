@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, articleActions, editArticle, fetchArticle } from "../store/slices/article";
+import { selectArticle, editArticle, fetchArticle } from "../store/slices/article";
 import Article2 from './Article2'
 import { selectUser } from "../store/slices/user";
 import { AppDispatch } from '../store';
@@ -14,20 +14,23 @@ function ArticleUpdate() {
     const articleId = Number(useParams().id);
     const articleState = useSelector(selectArticle);
     const userState = useSelector(selectUser);
+    const userId = 1;
 
     useEffect(() => {
         dispatch(fetchArticle(articleId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     let titleInit = "";
     let contentInit = "";
+
     if (articleState.selectedArticle) {
         titleInit = articleState.selectedArticle.title;
         contentInit =  articleState.selectedArticle.content;
     }
+
     const [title, setTitle] = useState<string>(titleInit);
     const [content, setContent] = useState<string>(contentInit);
-    const [author, setAuthor] = useState<number>(1);
     const [mode, setMode] = useState<string>("write");
 
 
@@ -40,7 +43,7 @@ function ArticleUpdate() {
     }
     
     const updateArticle = () => {
-        const data = { title: title, content: content, author_id: author, id: articleId };
+        const data = { title: title, content: content, author_id: userId, id: articleId };
         dispatch(editArticle(data));
         return navigate(`/articles/${articleId}`);
     }
@@ -58,7 +61,7 @@ function ArticleUpdate() {
         } else {
             return (
                 <div>
-                    <Article2 author={author} title={title} content={content} />
+                    <Article2 author={userId} title={title} content={content} />
                 </div>
             );
         }
@@ -71,23 +74,20 @@ function ArticleUpdate() {
         }
         if (conf) {
             return navigate("/articles");
-        } else {
-            return 0;
         }
     }
     const handleLogin = () => {
-        const target = userState.users.find((u) => u.id == 1);
+        const target = userState.users.find((u) => u.id == userId);
         if (! target?.logged_in) {
           return <Navigate to="/login" />;
         }
-        return <></>
       }
 
     return (
         <div className="ArticleUpdate">
             {handleLogin()}
             <Logout />
-            <h1>Article Update</h1>
+            <h1>Article Edit</h1>
             <button id="preview-tab-button" onClick={(event) => setMode("preview")}>Preview</button>
             <button id="write-tab-button" onClick={(event) => setMode("write")}>Write</button>
             {handleMode()}

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { articleActions, selectArticle, postArticle } from "../store/slices/article";
+import { selectArticle, postArticle } from "../store/slices/article";
 import Article2 from './Article2'
 import { AppDispatch } from '../store';
 import { selectUser } from "../store/slices/user";
@@ -11,12 +11,12 @@ import Logout from './logout';
 function ArticleCreate() {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
-    const [author, setAuthor] = useState<number>(1);
     const [mode, setMode] = useState<string>("write");
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const articleState = useSelector(selectArticle);
     const userState = useSelector(selectUser);
+    const userId = 1;
 
     const handleConfirm = () => {
         if (title == "" || content == "") {
@@ -28,7 +28,7 @@ function ArticleCreate() {
     
     const createArticle = () => {
         const articleId = articleState.articles[articleState.articles.length - 1].id + 1;
-        const data = { id: articleId, title: title, content: content, author_id: author };
+        const data = { id: articleId, title: title, content: content, author_id: userId };
         dispatch(postArticle(data));
         return navigate(`/articles/${articleId}`)
     }
@@ -46,18 +46,17 @@ function ArticleCreate() {
         } else {
             return (
                 <div>
-                    <Article2 author={author} title={title} content={content} />
+                    <Article2 author={userId} title={title} content={content} />
                 </div>
             );
         }
     }
 
     const handleLogin = () => {
-        const target = userState.users.find((u) => u.id == 1);
+        const target = userState.users.find((u) => u.id == userId);
         if (! target?.logged_in) {
           return <Navigate to="/login" />;
         }
-        return <></>
     }
 
     return (

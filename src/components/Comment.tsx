@@ -1,5 +1,5 @@
-import {selectComment, deleteComment, editComment} from '../store/slices/comment'
-import { useDispatch, useSelector } from "react-redux";
+import {deleteComment, editComment} from '../store/slices/comment'
+import { useDispatch } from "react-redux";
 import { AppDispatch } from '../store';
 
 interface IProps {
@@ -8,13 +8,14 @@ interface IProps {
     author: string | undefined;
     author_id: number;
 }
+
 const Comment = (props: IProps) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleEdit = () => {
         if (props.author_id === 1) {
             return (
-                <button id='edit-comment-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={() => { 
+                <button id='edit-comment-button' onClick={() => { 
                     commentEdit(props.content);
                  }}> 
                     Edit
@@ -33,7 +34,7 @@ const Comment = (props: IProps) => {
     const handleDelete = () => {
         if (props.author_id === 1) {
             return (
-                <button id='delete-comment-button' style={{ padding: '7px 10px', fontWeight: 'bold' }} onClick={
+                <button id='delete-comment-button' onClick={
                     () => { 
                         dispatch(deleteComment(props.id));
                     }
@@ -43,7 +44,6 @@ const Comment = (props: IProps) => {
             );
         }
     }
-
 
     return (
         <div className="Content">
@@ -58,4 +58,5 @@ const Comment = (props: IProps) => {
         </div>
     ); 
 };
+
 export default Comment;

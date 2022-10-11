@@ -4,12 +4,13 @@ import axios from 'axios'
 
 export interface UserType { id: number; email: string; password: string; name: string; logged_in: boolean}
 export interface UserState { users: UserType[]; selectedUser: UserType | null;}
+
 const initialState: UserState = {
     users: [
-        // {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", name: "Software Lover", logged_in: false}
     ],
     selectedUser: null,
 };
+
 export const userSlice = createSlice({
     name: "user",
     initialState,
@@ -40,6 +41,7 @@ export const userSlice = createSlice({
         });
     }
 });
+
 export const userActions = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

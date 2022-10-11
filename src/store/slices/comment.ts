@@ -4,11 +4,13 @@ import axios from 'axios'
 
 export interface CommentType { id: number; article_id: number; content: string; author_id: number; }
 export interface CommentState { comments: CommentType[]; selectedComment: CommentType | null;}
+
 const initialState: CommentState = {
     comments: [
     ],
     selectedComment: null,
 };
+
 export const commentSlice = createSlice({
     name: "comment",
     initialState,
@@ -49,10 +51,10 @@ export const commentSlice = createSlice({
         });
     }
 });
+
 export const commentActions = commentSlice.actions;
 export const selectComment = (state: RootState) => state.comment;
 export default commentSlice.reducer;
-
 
 export const fetchComments = createAsyncThunk(
     "comment/fetchComments",

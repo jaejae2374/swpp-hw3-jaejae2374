@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom'
 
 interface IProps {
@@ -6,6 +5,7 @@ interface IProps {
     id: number;
     author: string | undefined;
 }
+
 const Article = (props: IProps) => {
     const navigate = useNavigate();
     return (
@@ -22,4 +22,5 @@ const Article = (props: IProps) => {
         </div>
     ); 
 };
+
 export default Article;
