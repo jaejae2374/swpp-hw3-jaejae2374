@@ -13,3 +13,6 @@ exit
 npx tsc
 python -m http.server
 exit
+ls
+yarn start
+exit

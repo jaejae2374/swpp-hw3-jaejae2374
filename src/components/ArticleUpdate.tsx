@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, articleActions } from "../store/slices/article";
+import { selectArticle, articleActions, editArticle, fetchArticle } from "../store/slices/article";
+import Article2 from './Article2'
+import { selectUser } from "../store/slices/user";
+import { AppDispatch } from '../store';
+import Logout from './logout';
 
 
 function ArticleUpdate() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const articleId = Number(useParams().id);
     const articleState = useSelector(selectArticle);
+    const userState = useSelector(selectUser);
+
+    useEffect(() => {
+        dispatch(fetchArticle(articleId));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     let titleInit = "";
     let contentInit = "";
     if (articleState.selectedArticle) {
@@ -19,7 +29,6 @@ function ArticleUpdate() {
     const [content, setContent] = useState<string>(contentInit);
     const [author, setAuthor] = useState<number>(1);
     const [mode, setMode] = useState<string>("write");
-    
 
 
     const handleConfirm = () => {
@@ -31,25 +40,25 @@ function ArticleUpdate() {
     }
     
     const updateArticle = () => {
-        const data = { title: title, content: content, author: author, targetId: articleId };
-        dispatch(articleActions.updateArticle(data));
-        return navigate("/articles"); // TODO: detail page 이동
+        const data = { title: title, content: content, author_id: author, id: articleId };
+        dispatch(editArticle(data));
+        return navigate(`/articles/${articleId}`);
     }
 
     const handleMode = () => {
         if (mode == "write") {
             return (
                 <div>
-                <label>Title</label>
-                <input id="article-title-input" type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-                <label>Content</label>
-                <textarea id="article-content-input" rows={6} cols={50} value={content} onChange={(event) => setContent(event.target.value)} />
+                    <label>Title</label>
+                    <input id="article-title-input" type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
+                    <label>Content</label>
+                    <textarea id="article-content-input" rows={6} cols={50} value={content} onChange={(event) => setContent(event.target.value)} />
                 </div>
             );
         } else {
             return (
                 <div>
-                    <h2>Preview Mode</h2>
+                    <Article2 author={author} title={title} content={content} />
                 </div>
             );
         }
@@ -63,22 +72,29 @@ function ArticleUpdate() {
         if (conf) {
             return navigate("/articles");
         } else {
-            return
+            return 0;
         }
     }
+    const handleLogin = () => {
+        const target = userState.users.find((u) => u.id == 1);
+        if (! target?.logged_in) {
+          return <Navigate to="/login" />;
+        }
+        return <></>
+      }
 
     return (
         <div className="ArticleUpdate">
+            {handleLogin()}
+            <Logout />
             <h1>Article Update</h1>
             <button id="preview-tab-button" onClick={(event) => setMode("preview")}>Preview</button>
             <button id="write-tab-button" onClick={(event) => setMode("write")}>Write</button>
             {handleMode()}
             <button id="back-edit-article-button" onClick={handleBack}>Back</button>
             {handleConfirm()}
-
         </div>
     )
-
 }
 
 export default ArticleUpdate;
