@@ -23,7 +23,6 @@ const mockStore_logout = createMockStoreLogout();
 describe("<ArticleCreate />", () => {
     let articleCreate: JSX.Element;
     let articleCreate_logout: JSX.Element;
-    let articleDetail_another: JSX.Element;
     beforeEach(() => {
         jest.clearAllMocks();
         articleCreate = (
@@ -45,16 +44,6 @@ describe("<ArticleCreate />", () => {
                     <Route path="/" element={<Navigate replace to={"/articles/create"}/>}/>
                     <Route path="/articles/create" element={<ArticleCreate />} />
                     <Route path="/login" element={<Login />} />
-                </Routes>
-            </MemoryRouter>
-            </Provider>
-        );
-        articleDetail_another = (
-            <Provider store={mockStore}>
-            <MemoryRouter>
-                <Routes>
-                    <Route path="/" element={<Navigate replace to={"/articles/2"}/>}/>
-                    <Route path="/articles/:id" element={<ArticleDetail />} />
                 </Routes>
             </MemoryRouter>
             </Provider>
