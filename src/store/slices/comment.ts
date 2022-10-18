@@ -15,11 +15,6 @@ export const commentSlice = createSlice({
     name: "comment",
     initialState,
     reducers: {
-        getAll: (state, action: PayloadAction<{ todos: CommentType[] }>) => {},
-        getComment: (state, action: PayloadAction<{ targetId: number }>) => {
-            const target = state.comments.find((c) => c.id === action.payload.targetId);
-            state.selectedComment = target ?? null
-        },
         deleteComment: (state, action: PayloadAction<{ targetId: number }>) => {
             const deleted = state.comments.filter((c) => {
                 return c.id !== action.payload.targetId;

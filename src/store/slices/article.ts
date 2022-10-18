@@ -15,11 +15,6 @@ export const articleSlice = createSlice({
     name: "article",
     initialState,
     reducers: {
-        getAll: (state, action: PayloadAction<{ todos: ArticleType[] }>) => {},
-        getArticle: (state, action: PayloadAction<{ targetId: number }>) => {
-            const target = state.articles.find((a) => a.id === action.payload.targetId);
-            state.selectedArticle = target ?? null
-        },
         deleteArticle: (state, action: PayloadAction<{ targetId: number }>) => {
             const deleted = state.articles.filter((a) => {
                 return a.id !== action.payload.targetId;

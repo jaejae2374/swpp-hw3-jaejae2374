@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, postArticle } from "../store/slices/article";
-import Article2 from './Article2'
-import { AppDispatch } from '../store';
-import { selectUser } from "../store/slices/user";
-import Logout from './logout';
+import { selectArticle, postArticle } from "../../../store/slices/article";
+import Article2 from '../../../components/Article/Article2'
+import { AppDispatch } from '../../../store';
+import { selectUser } from "../../../store/slices/user";
+import Logout from '../../../components/User/logout';
 
 
 function ArticleCreate() {
@@ -17,6 +17,13 @@ function ArticleCreate() {
     const articleState = useSelector(selectArticle);
     const userState = useSelector(selectUser);
     const userId = 1;
+
+    const getName = (id: Number | undefined) => {
+        if (id) {
+            const target = userState.users.find((u) => u.id == id);
+            return target?.name;
+        }
+    }
 
     const handleConfirm = () => {
         if (title == "" || content == "") {
@@ -37,16 +44,16 @@ function ArticleCreate() {
         if (mode == "write") {
             return (
                 <div>
-                    <label>Title</label>
+                    <label htmlFor="article-title-input">Title</label>
                     <input id="article-title-input" type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-                    <label>Content</label>
+                    <label htmlFor="article-content-input">Content</label>
                     <textarea id="article-content-input" rows={6} cols={50} value={content} onChange={(event) => setContent(event.target.value)} />
                 </div>
             );
         } else {
             return (
                 <div>
-                    <Article2 author={userId} title={title} content={content} />
+                    <Article2 author={getName(userId)} title={title} content={content} />
                 </div>
             );
         }

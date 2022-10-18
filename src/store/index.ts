@@ -5,11 +5,12 @@ import commentReducer from "./slices/comment"
 
 
 export const store = configureStore({
- reducer: {
-   article: articleReducer,
-   user: userReducer,
-   comment: commentReducer
+  reducer: {
+    article: articleReducer,
+    user: userReducer,
+    comment: commentReducer
  },
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStore = typeof store;

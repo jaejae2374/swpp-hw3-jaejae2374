@@ -1,6 +1,12 @@
 {
   "articles": [
     {
+      "id": 0,
+      "author_id": 1,
+      "title": "10 React JS Articles Every Web Developer Should Read",
+      "content": "Hello Guys, React or React JS is a JavaScript front-end library from Facebook which lets you create HTML based GUI. It makes the task easier by providing a component-based architecture which was only available to languages like Java and C# before."
+    },
+    {
       "id": 11,
       "author_id": 2,
       "title": "React: A JavaScript library for building user interfaces",
@@ -192,10 +198,7 @@
   "user": [
     {
       "id": 1,
-      "logged_in": true,
-      "email": "swpp@snu.ac.kr",
-      "password": "iluvswpp",
-      "name": "Software Lover"
+      "logged_in": false
     },
     {
       "id": 2,

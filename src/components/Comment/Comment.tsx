@@ -1,6 +1,6 @@
-import {deleteComment, editComment} from '../store/slices/comment'
+import {deleteComment, editComment} from '../../store/slices/comment'
 import { useDispatch } from "react-redux";
-import { AppDispatch } from '../store';
+import { AppDispatch } from '../../store';
 
 interface IProps {
     id: number;

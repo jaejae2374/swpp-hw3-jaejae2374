@@ -15,12 +15,6 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // getAll: (state, action: PayloadAction<{ todos: ArticleType[] }>) => {},
-        getUser: (state, action: PayloadAction<{ targetId: number }>) => {
-            const target = state.users.find((u) => u.id === action.payload.targetId);
-            state.selectedUser = target ?? null
-        },
-        
         updateLogin: (state, action: PayloadAction<{ id: number, email: string, password: string, name: string, logged_in: boolean }>) => {
             let target = state.users.find((u) => u.id === action.payload.id);
             target = {

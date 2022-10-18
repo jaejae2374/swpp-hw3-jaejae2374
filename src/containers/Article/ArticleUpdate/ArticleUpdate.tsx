@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, editArticle, fetchArticle } from "../store/slices/article";
-import Article2 from './Article2'
-import { selectUser } from "../store/slices/user";
-import { AppDispatch } from '../store';
-import Logout from './logout';
+import { selectArticle, editArticle, fetchArticle } from "../../../store/slices/article";
+import Article2 from '../../../components/Article/Article2'
+import { selectUser } from "../../../store/slices/user";
+import { AppDispatch } from '../../../store';
+import Logout from '../../../components/User/logout';
 
 
 function ArticleUpdate() {
@@ -28,7 +28,7 @@ function ArticleUpdate() {
         titleInit = articleState.selectedArticle.title;
         contentInit =  articleState.selectedArticle.content;
     }
-
+    
     const [title, setTitle] = useState<string>(titleInit);
     const [content, setContent] = useState<string>(contentInit);
     const [mode, setMode] = useState<string>("write");
@@ -42,6 +42,12 @@ function ArticleUpdate() {
         }
     }
     
+    const getName = (id: Number | undefined) => {
+        if (id) {
+            const target = userState.users.find((u) => u.id == id);
+            return target?.name;
+        }
+    }
     const updateArticle = () => {
         const data = { title: title, content: content, author_id: userId, id: articleId };
         dispatch(editArticle(data));
@@ -52,16 +58,16 @@ function ArticleUpdate() {
         if (mode == "write") {
             return (
                 <div>
-                    <label>Title</label>
+                    <label htmlFor='article-title-input'>Title</label>
                     <input id="article-title-input" type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-                    <label>Content</label>
+                    <label htmlFor='article-content-input'>Content</label>
                     <textarea id="article-content-input" rows={6} cols={50} value={content} onChange={(event) => setContent(event.target.value)} />
                 </div>
             );
         } else {
             return (
                 <div>
-                    <Article2 author={userId} title={title} content={content} />
+                    <Article2 author={getName(userId)} title={title} content={content} />
                 </div>
             );
         }

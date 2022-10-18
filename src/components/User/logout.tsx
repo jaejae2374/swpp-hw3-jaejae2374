@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { updateLogin } from "../store/slices/user";
-import { AppDispatch } from '../store';
+import { updateLogin } from "../../store/slices/user";
+import { AppDispatch } from '../../store';
 import { useNavigate } from 'react-router-dom'
 
 function Logout() {

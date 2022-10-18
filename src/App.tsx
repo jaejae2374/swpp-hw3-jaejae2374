@@ -1,9 +1,9 @@
 import './App.css';
-import Login from './components/login'
-import ArticleList from './components/ArticleList';
-import ArticleCreate from './components/ArticleCreate';
-import ArticleUpdate from './components/ArticleUpdate';
-import ArticleDetail from './components/ArticleDetail'
+import Login from './components/User/login'
+import ArticleList from './containers/Article/ArticleList/ArticleList';
+import ArticleCreate from './containers/Article/ArticleCreate/ArticleCreate';
+import ArticleUpdate from './containers/Article/ArticleUpdate/ArticleUpdate';
+import ArticleDetail from './containers/Article/ArticleDetail/ArticleDetail'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {

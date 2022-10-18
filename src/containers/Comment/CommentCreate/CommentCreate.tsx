@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from '../store';
-import { postComment, selectComment } from "../store/slices/comment";
+import { AppDispatch } from '../../../store';
+import { postComment, selectComment } from "../../../store/slices/comment";
 
 interface IProps {
     article_id: number;
@@ -30,6 +30,7 @@ function CommentCreate(props: IProps) {
 
     return (
         <div className="CommentCreate">
+            <label htmlFor='new-comment-content-input'>Comment Create</label>
             <input id="new-comment-content-input" type="text" value={content} onChange={(event) => setContent(event.target.value)} />
             {handleConfirm()}
         </div>

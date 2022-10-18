@@ -22,5 +22,4 @@ const Article = (props: IProps) => {
         </div>
     ); 
 };
-
 export default Article;

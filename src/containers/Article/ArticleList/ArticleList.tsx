@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom'
-import Article from './Article'
+import Article from '../../../components/Article/Article'
 import { useDispatch, useSelector } from "react-redux";
-import { selectArticle, fetchArticles } from "../store/slices/article";
-import { userActions, selectUser, fetchUsers } from "../store/slices/user";
-import { fetchComments } from '../store/slices/comment';
-import { AppDispatch } from '../store';
-import Logout from './logout';
+import { selectArticle, fetchArticles } from "../../../store/slices/article";
+import { selectUser } from "../../../store/slices/user";
+import { fetchComments } from '../../../store/slices/comment';
+import { AppDispatch } from '../../../store';
+import Logout from '../../../components/User/logout';
 
 function ArticleList() {
     const navigate = useNavigate();
@@ -42,9 +42,9 @@ function ArticleList() {
             Create Article 
         </button>
         <hr />
-        <div className="Articles">
-            {articleState.articles.map((a) => {
-              return <Article id={a.id} title={a.title} author={getName(a.author_id)} />;
+        <div className="ArticleList">
+            {articleState.articles.map((a, index) => {
+              return <Article key={`article_${index}`} id={a.id} title={a.title} author={getName(a.author_id)} />;
             })} 
         </div>
       </div>

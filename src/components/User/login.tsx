@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { updateLogin, fetchUsers, selectUser } from "../store/slices/user";
-import { AppDispatch } from '../store';
+import { updateLogin, fetchUsers, selectUser } from "../../store/slices/user";
+import { AppDispatch } from '../../store';
 
 function Login() {
     const navigate = useNavigate();
@@ -15,14 +15,6 @@ function Login() {
         dispatch(fetchUsers())
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
- 
-    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    }
- 
-    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    }
  
     const onClickLogin = () => {
         if (email === "swpp@snu.ac.kr" && password === "iluvswpp") {
@@ -44,12 +36,16 @@ function Login() {
             {handleLogin()}
             <h1>Login</h1>
             <div>
-                <label htmlFor='email-input'>Email : </label>
-                <input type='text' id='email-input' value={email} onChange={handleEmail} />
+                <label htmlFor='email-input'>Email</label>
+                <input type='text' id='email-input' value={email} onChange={(e) => {
+                    setEmail(e.target.value);
+                }} />
             </div>
             <div>
-                <label htmlFor='pw-input'>PW : </label>
-                <input type='password' id='pw-input' value={password} onChange={handlePassword} />
+                <label htmlFor='pw-input'>PW</label>
+                <input type='password' id='pw-input' value={password} onChange={(e) => {
+                    setPassword(e.target.value);
+                }} />
             </div>
             <div>
                 <button type='button' id="login-button" onClick={onClickLogin}>Login</button>
